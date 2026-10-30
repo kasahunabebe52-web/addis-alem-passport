@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>አዲስ ዓለም ዲጂታል አገልግሎት</title>
-    <!-- የቴሌግራም ሚኒ አፕ ስክሪፕት -->
     <script src="https://telegram.org"></script>
     <style>
         body {
@@ -13,7 +12,6 @@
             color: #ffffff;
             margin: 0;
             padding: 20px;
-            direction: ltr;
         }
         .container {
             max-width: 500px;
@@ -47,10 +45,6 @@
             box-sizing: border-box;
             font-size: 16px;
         }
-        input:focus, select:focus {
-            border-color: #4fa4f3;
-            outline: none;
-        }
         .btn {
             width: 100%;
             padding: 14px;
@@ -62,10 +56,6 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background-color: #3b8ed8;
         }
     </style>
 </head>
@@ -74,54 +64,46 @@
 <div class="container">
     <h2>🦁 አዲስ ዓለም ፓስፖርት አገልግሎት</h2>
     <form id="passportForm">
-        
         <div class="form-group">
             <label for="serviceType">የአገልግሎት ዓይነት (Service Type)</label>
             <select id="serviceType" required>
                 <option value="">-- ምረጥ --</option>
-                <option value="new">አዲስ ፓስፖርት ማውጣት (New Application)</option>
-                <option value="renew">ፓስፖርት ማደስ (Passport Renewal)</option>
+                <option value="አዲስ ፓስፖርት">አዲስ ፓስፖርት ማውጣት (New Application)</option>
+                <option value="ፓስፖርት እድሳት">ፓስፖርት ማደስ (Passport Renewal)</option>
             </select>
         </div>
-
         <div class="form-group">
-            <label for="fullName">முழு ስም (በካፒታል ሌተር ፊደል)</label>
+            <label for="fullName">ሙሉ ስም (በካፒታል ሌተር ፊደል)</label>
             <input type="text" id="fullName" placeholder="የአባትና የአያት ስም ጨምሮ..." required>
         </div>
-
         <div class="form-group">
             <label for="phoneNumber">የስልክ ቁጥር (Phone Number)</label>
             <input type="tel" id="phoneNumber" placeholder="09..." required>
         </div>
-
-        <div class="form-group">
-            <label for="faydaId">የፋይዳ ዲጂታል መታወቂያ ቁጥር (ካለዎት)</label>
-            <input type="text" id="faydaId" placeholder="ET-...">
-        </div>
-
         <button type="submit" class="btn">🚀 መረጃዎችን ላክ (Submit)</button>
     </form>
 </div>
 
 <script>
-    // ቴሌግራም ሚኒ አፕን ማስጀመር
     const tg = window.Telegram.WebApp;
-    tg.expand(); // አፑን ሙሉ ስክሪን ማድረግ
+    tg.expand();
+    
+    // ቦቱ ሲጀምር ከታች ትልቅ አዝራር (MainButton) እንዲያሳይ ማዘዝ
+    tg.MainButton.text = "አፕሊኬሽኑን ዝጋ";
+    tg.MainButton.hide();
 
     document.getElementById('passportForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // መረጃዎችን መሰብሰብ
-        const data = {
-            service: document.getElementById('serviceType').value,
-            name: document.getElementById('fullName').value,
-            phone: document.getElementById('phoneNumber').value,
-            fayda: document.getElementById('faydaId').value
-        };
+        const service = document.getElementById('serviceType').value;
+        const name = document.getElementById('fullName').value;
+        const phone = document.getElementById('phoneNumber').value;
 
-        // መረጃውን ወደ ቴሌግራም ቦቱ መላክ
-        tg.sendData(JSON.stringify(data));
-        tg.close(); // አፑን መዝጋት
+        // መረጃውን ወደ ቴሌግራም ቴክስት መልክ ቀይሮ መላክ
+        const textMessage = `📌 አዲስ የምዝገባ ጥያቄ ደርሷል!\n\n🔹 የአገልግሎት ዓይነት: ${service}\n🔹 ሙሉ ስም: ${name}\n🔹 ስልክ ቁጥር: ${phone}`;
+        
+        tg.sendData(textMessage);
+        tg.close();
     });
 </script>
 </body>
