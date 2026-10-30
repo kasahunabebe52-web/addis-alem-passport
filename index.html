@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>አዲስ ዓለም ዲጂታል አገልግሎት</title>
+    <!-- የቴሌግራም ሚኒ አፕ ስክሪፕት -->
+    <script src="https://telegram.org"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1c222d;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            direction: ltr;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #242f3d;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #4fa4f3;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #b2bfc8;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #3b4b5e;
+            border-radius: 8px;
+            background-color: #17212b;
+            color: white;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input:focus, select:focus {
+            border-color: #4fa4f3;
+            outline: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #4fa4f3;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #3b8ed8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🦁 አዲስ ዓለም ፓስፖርት አገልግሎት</h2>
+    <form id="passportForm">
+        
+        <div class="form-group">
+            <label for="serviceType">የአገልግሎት ዓይነት (Service Type)</label>
+            <select id="serviceType" required>
+                <option value="">-- ምረጥ --</option>
+                <option value="new">አዲስ ፓስፖርት ማውጣት (New Application)</option>
+                <option value="renew">ፓስፖርት ማደስ (Passport Renewal)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fullName">முழு ስም (በካፒታል ሌተር ፊደል)</label>
+            <input type="text" id="fullName" placeholder="የአባትና የአያት ስም ጨምሮ..." required>
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">የስልክ ቁጥር (Phone Number)</label>
+            <input type="tel" id="phoneNumber" placeholder="09..." required>
+        </div>
+
+        <div class="form-group">
+            <label for="faydaId">የፋይዳ ዲጂታል መታወቂያ ቁጥር (ካለዎት)</label>
+            <input type="text" id="faydaId" placeholder="ET-...">
+        </div>
+
+        <button type="submit" class="btn">🚀 መረጃዎችን ላክ (Submit)</button>
+    </form>
+</div>
+
+<script>
+    // ቴሌግራም ሚኒ አፕን ማስጀመር
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // አፑን ሙሉ ስክሪን ማድረግ
+
+    document.getElementById('passportForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // መረጃዎችን መሰብሰብ
+        const data = {
+            service: document.getElementById('serviceType').value,
+            name: document.getElementById('fullName').value,
+            phone: document.getElementById('phoneNumber').value,
+            fayda: document.getElementById('faydaId').value
+        };
+
+        // መረጃውን ወደ ቴሌግራም ቦቱ መላክ
+        tg.sendData(JSON.stringify(data));
+        tg.close(); // አፑን መዝጋት
+    });
+</script>
+</body>
+</html>
